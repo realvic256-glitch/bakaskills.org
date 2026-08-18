@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Baka Skills Soccer Academy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700;800&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pitch: #0F3D2E;
+    --pitch-dark: #0A2A20;
+    --gold: #FFC93C;
+    --crane-red: #D7263D;
+    --cream: #FAF6EC;
+    --ink: #131612;
+    --line: rgba(19,22,18,0.12);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    line-height:1.5;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{
+    font-family:'Anton', sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    line-height:0.95;
+  }
+  .eyebrow{
+    font-family:'Bebas Neue', sans-serif;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    font-size:0.85rem;
+    color:var(--crane-red);
+  }
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px;}
+  section{padding:96px 0;}
+
+  a:focus-visible, button:focus-visible{outline:3px solid var(--gold); outline-offset:3px;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
+  }
+
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    background:rgba(10,42,32,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    max-width:1120px; margin:0 auto; padding:16px 24px;
+  }
+  .logo{
+    font-family:'Anton', sans-serif;
+    color:var(--cream);
+    font-size:1.15rem;
+    letter-spacing:0.5px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .logo .ball{
+    width:14px;height:14px;border-radius:50%;
+    background:var(--gold);
+    box-shadow:0 0 0 3px rgba(255,201,60,0.25);
+  }
+  .navlinks{display:flex; gap:28px; font-size:0.9rem; color:rgba(250,246,236,0.85);}
+  .navlinks a{transition:color .2s;}
+  .navlinks a:hover{color:var(--gold);}
+  .nav-cta{
+    background:var(--crane-red); color:var(--cream);
+    padding:10px 18px; font-family:'Bebas Neue',sans-serif;
+    letter-spacing:1.5px; font-size:0.9rem; border-radius:2px;
+    transition:transform .2s, background .2s;
+  }
+  .nav-cta:hover{background:#b81f34; transform:translateY(-1px);}
+  .menu-toggle{display:none; background:none; border:none; color:var(--cream); font-size:1.6rem; cursor:pointer;}
+
+  @media (max-width:760px){
+    .navlinks{
+      position:absolute; top:100%; left:0; right:0;
+      background:var(--pitch-dark);
+      flex-direction:column; gap:0;
+      max-height:0; overflow:hidden; transition:max-height .3s ease;
+    }
+    .navlinks.open{max-height:320px;}
+    .navlinks a{padding:14px 24px; border-top:1px solid rgba(255,255,255,0.08); width:100%;}
+    .menu-toggle{display:block;}
+    .nav-cta{display:none;}
+  }
+
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex; align-items:center;
+    background:
+      radial-gradient(circle at 85% 15%, rgba(255,201,60,0.18), transparent 45%),
+      linear-gradient(160deg, var(--pitch) 0%, var(--pitch-dark) 65%, #081d16 100%);
+    color:var(--cream);
+    padding-top:90px;
+    overflow:hidden;
+  }
+  .hero-inner{
+    max-width:1120px; margin:0 auto; padding:0 24px;
+    display:grid; grid-template-columns:1.3fr 1fr; gap:40px; align-items:center;
+    position:relative; z-index:2;
+  }
+  .hero .eyebrow{color:var(--gold);}
+  .hero h1{
+    font-size:clamp(3rem, 7vw, 5.4rem);
+    margin:14px 0 20px;
+  }
+  .hero h1 .accent{color:var(--gold);}
+  .hero p.lead{
+    font-size:1.15rem; max-width:46ch; color:rgba(250,246,236,0.82);
+    margin-bottom:32px;
+  }
+  .hero-ctas{display:flex; gap:16px; flex-wrap:wrap;}
+  .btn-primary{
+    background:var(--gold); color:var(--ink);
+    padding:15px 28px; font-family:'Bebas Neue',sans-serif;
+    letter-spacing:1.5px; font-size:1rem; border-radius:2px;
+    display:inline-block; transition:transform .2s, box-shadow .2s;
+  }
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 8px 20px rgba(255,201,60,0.3);}
+  .btn-ghost{
+    border:1.5px solid rgba(250,246,236,0.4); color:var(--cream);
+    padding:14px 26px; font-family:'Bebas Neue',sans-serif;
+    letter-spacing:1.5px; font-size:1rem; border-radius:2px;
+    transition:border-color .2s, background .2s;
+  }
+  .btn-ghost:hover{border-color:var(--gold); background:rgba(255,201,60,0.08);}
+
+  .scoreboard{
+    background:var(--ink);
+    border:1px solid rgba(255,201,60,0.35);
+    border-radius:4px;
+    padding:22px;
+    font-family:'Bebas Neue', sans-serif;
+    color:var(--cream);
+    box-shadow:0 20px 50px rgba(0,0,0,0.4);
+  }
+  .scoreboard-title{
+    font-size:0.8rem; letter-spacing:3px; color:var(--gold);
+    border-bottom:1px dashed rgba(255,201,60,0.3);
+    padding-bottom:10px; margin-bottom:14px;
+  }
+  .scoreboard-row{
+    display:flex; justify-content:space-between; align-items:baseline;
+    padding:9px 0; border-bottom:1px solid rgba(255,255,255,0.06);
+    font-size:1.05rem; letter-spacing:1px;
+  }
+  .scoreboard-row:last-child{border-bottom:none;}
+  .scoreboard-row .num{color:var(--gold); font-size:1.3rem;}
+
+  .section-head{max-width:640px; margin-bottom:56px;}
+  .section-head h2{font-size:clamp(2.1rem, 4vw, 3rem); margin-top:10px;}
+  .section-head p{color:rgba(19,22,18,0.65); margin-top:14px; font-size:1.05rem;}
+  .on-dark .section-head p{color:rgba(250,246,236,0.7);}
+
+  .about{background:var(--cream);}
+  .about-grid{display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start;}
+  .about-grid p{margin-bottom:16px; color:rgba(19,22,18,0.78); font-size:1.02rem;}
+  .founder-card{
+    background:#fff; border:1px solid var(--line); border-radius:6px;
+    padding:28px; position:relative;
+  }
+  .founder-card::before{
+    content:"";
+    position:absolute; top:0; left:0; width:6px; height:100%;
+    background:var(--crane-red); border-radius:6px 0 0 6px;
+  }
+  .founder-card .eyebrow{margin-bottom:8px;}
+  .founder-card h3{font-size:1.5rem; margin-bottom:10px;}
+  .founder-card p{color:rgba(19,22,18,0.72); font-size:0.98rem;}
+
+  .values{background:var(--pitch-dark); color:var(--cream);}
+  .values-grid{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
+    background:rgba(255,255,255,0.1);
+    border:1px solid rgba(255,255,255,0.1);
+  }
+  .value-card{
+    background:var(--pitch-dark); padding:34px 26px; transition:background .25s;
+  }
+  .value-card:hover{background:#0d3527;}
+  .value-card .vnum{
+    font-family:'Anton',sans-serif; font-size:2.4rem; color:rgba(255,201,60,0.35);
+    margin-bottom:14px;
+  }
+  .value-card h3{font-size:1.15rem; margin-bottom:10px; letter-spacing:0.5px;}
+  .value-card p{color:rgba(250,246,236,0.65); font-size:0.92rem;}
+  @media(max-width:820px){ .values-grid{grid-template-columns:1fr 1fr;} }
+  @media(max-width:520px){ .values-grid{grid-template-columns:1fr;} }
+
+  .categories{background:var(--cream);}
+  .cat-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:22px;}
+  @media(max-width:820px){ .cat-grid{grid-template-columns:1fr 1fr;} }
+  @media(max-width:480px){ .cat-grid{grid-template-columns:1fr;} }
+  .jersey{
+    background:var(--pitch); border-radius:8px; padding:28px 22px;
+    color:var(--cream); position:relative; overflow:hidden;
+    transition:transform .25s, box-shadow .25s;
+  }
+  .jersey:hover{transform:translateY(-6px); box-shadow:0 16px 30px rgba(15,61,46,0.25);}
+  .jersey::after{
+    content:"";
+    position:absolute; right:-30px; top:-30px; width:100px; height:100px;
+    border-radius:50%; background:rgba(255,201,60,0.12);
+  }
+  .jersey .jnum{
+    font-family:'Anton',sans-serif; font-size:3rem; color:var(--gold);
+  }
+  .jersey .jlabel{
+    font-family:'Bebas Neue',sans-serif; letter-spacing:2px; font-size:0.95rem;
+    margin-top:4px; margin-bottom:12px; color:rgba(250,246,236,0.85);
+  }
+  .jersey p{font-size:0.88rem; color:rgba(250,246,236,0.65);}
+
+  .coaches{background:var(--cream);}
+  .coach-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:24px;}
+  @media(max-width:700px){ .coach-grid{grid-template-columns:1fr;} }
+  .coach-card{
+    background:#fff; border:1px solid var(--line); border-radius:6px; padding:30px;
+  }
+  .coach-role{color:var(--crane-red); font-family:'Bebas Neue',sans-serif; letter-spacing:2px; font-size:0.85rem;}
+  .coach-card h3{font-size:1.4rem; margin:8px 0 14px;}
+  .coach-quote{
+    font-size:1.02rem; color:rgba(19,22,18,0.75); font-style:italic;
+    border-left:3px solid var(--gold); padding-left:16px; margin-top:14px;
+  }
+
+  .spotlight{background:var(--pitch); color:var(--cream); position:relative;}
+  .spotlight .wrap{display:grid; grid-template-columns:0.9fr 1.4fr; gap:50px; align-items:center;}
+  @media(max-width:760px){ .spotlight .wrap{grid-template-columns:1fr;} }
+  .spot-badge{
+    width:120px; height:120px; border-radius:50%;
+    background:var(--gold); color:var(--pitch-dark);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Anton',sans-serif; font-size:2.6rem;
+    margin-bottom:20px;
+  }
+  .spotlight .eyebrow{color:var(--gold);}
+  .spotlight h2{font-size:clamp(1.9rem,3.5vw,2.6rem); margin:10px 0 18px;}
+  .spotlight blockquote{
+    font-size:1.15rem; line-height:1.6; color:rgba(250,246,236,0.9);
+    border-left:4px solid var(--crane-red); padding-left:20px;
+  }
+  .spotlight cite{
+    display:block; margin-top:16px; font-style:normal;
+    font-family:'Bebas Neue',sans-serif; letter-spacing:1.5px; color:var(--gold);
+  }
+
+  .news{background:var(--cream);}
+  .news-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+  @media(max-width:820px){ .news-grid{grid-template-columns:1fr;} }
+  .news-card{
+    background:#fff; border:1px solid var(--line); border-radius:6px;
+    padding:26px; display:flex; flex-direction:column; gap:10px;
+  }
+  .news-date{font-family:'Bebas Neue',sans-serif; letter-spacing:1.5px; color:var(--crane-red); font-size:0.85rem;}
+  .news-card h3{font-size:1.15rem; text-transform:none; font-family:'Work Sans',sans-serif; font-weight:700;}
+  .news-card p{font-size:0.92rem; color:rgba(19,22,18,0.68);}
+
+  .join{
+    background:linear-gradient(135deg, var(--crane-red), #a91c2e);
+    color:var(--cream);
+  }
+  .join .wrap{display:grid; grid-template-columns:1fr 1fr; gap:50px; align-items:center;}
+  @media(max-width:760px){ .join .wrap{grid-template-columns:1fr;} }
+  .join h2{font-size:clamp(2rem,4vw,2.8rem); margin-bottom:16px;}
+  .join p.lead{color:rgba(250,246,236,0.85); max-width:44ch; margin-bottom:6px;}
+  .join-form{
+    background:var(--cream); color:var(--ink);
+    border-radius:8px; padding:30px;
+    display:flex; flex-direction:column; gap:14px;
+  }
+  .join-form label{font-size:0.8rem; font-family:'Bebas Neue',sans-serif; letter-spacing:1.5px; color:rgba(19,22,18,0.6);}
+  .join-form input, .join-form select{
+    padding:12px 14px; border:1px solid var(--line); border-radius:4px;
+    font-family:'Work Sans',sans-serif; font-size:0.95rem; background:#fff;
+  }
+  .join-form input:focus, .join-form select:focus{outline:2px solid var(--pitch); border-color:var(--pitch);}
+  .join-form button{
+    margin-top:6px; background:var(--pitch); color:var(--cream);
+    border:none; padding:14px; border-radius:4px; cursor:pointer;
+    font-family:'Bebas Neue',sans-serif; letter-spacing:1.5px; font-size:1rem;
+    transition:background .2s;
+  }
+  .join-form button:hover{background:var(--pitch-dark);}
+  .form-note{font-size:0.78rem; color:rgba(19,22,18,0.5);}
+
+  footer{background:var(--pitch-dark); color:rgba(250,246,236,0.6); padding:48px 0 28px;}
+  .footer-grid{display:flex; justify-content:space-between; flex-wrap:wrap; gap:24px; margin-bottom:30px;}
+  .footer-logo{font-family:'Anton',sans-serif; color:var(--cream); font-size:1.2rem;}
+  .footer-links{display:flex; gap:20px; font-size:0.88rem;}
+  .footer-links a:hover{color:var(--gold);}
+  .footer-bottom{
+    border-top:1px solid rgba(255,255,255,0.08); padding-top:20px;
+    font-size:0.8rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+  }
+
+  .reveal{opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.visible{opacity:1; transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="logo"><span class="ball"></span>BAKA SKILLS ACADEMY</div>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">☰</button>
+    <div class="navlinks" id="navLinks">
+      <a href="#about">About</a>
+      <a href="#categories">Categories</a>
+      <a href="#coaches">Coaches</a>
+      <a href="#news">News</a>
+      <a href="#join">Join</a>
+    </div>
+    <a href="#join" class="nav-cta">JOIN NOW</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="eyebrow">Baka Skills Soccer Academy · Uganda.tel:+256749562465 mailto:kisenyibaker@gmail.com</div>
+      <h1>Developing<br>young <span class="accent">talents</span>⚽</h1>
+      <p class="lead">Founded by Coach Kakande, Baka Skills builds skill, discipline, and hardwork into every young player who steps onto the pitch. This is where careers begin.</p>
+      <div class="hero-ctas">
+        <a href="#join" class="btn-primary">ENROLL YOUR CHILD</a>
+        <a href="#about" class="btn-ghost">OUR STORY</a>
+      </div>
+    </div>
+    <div class="scoreboard reveal">
+      <div class="scoreboard-title">BAKA ARMY · MATCHDAY FACTS</div>
+      <div class="scoreboard-row"><span>Age categories</span><span class="num">U8–U11+</span></div>
+      <div class="scoreboard-row"><span>Training focus</span><span class="num">MORNING</span></div>
+      <div class="scoreboard-row"><span>Core values</span><span class="num">04</span></div>
+      <div class="scoreboard-row"><span>Founded by</span><span class="num">KAKANDE</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Our Story</div>
+      <img src="c:\Users\M-KAI\Downloads\IMG-20260817-WA0052.jpg" alt="">
+      <h2>Built on hard work, one player at a time</h2>
+    </div>
+    <div class="about-grid">
+      <div class="reveal">
+        <p>Baka Skills Soccer Academy is a team founded by a hard-working man called Coach Kakande, whose aim is to develop young footballing talent across Uganda.</p>
+        <p>From training grounds to team tours, every activity is designed to sharpen ability and character together. Recently, the boys visited a grass cutter as part of the academy's ongoing tours — one more way our young stars pick up new skills off the pitch as well as on it.</p>
+        <p>Joining the academy means wishing your child the best in his career. We're here for you, every step of the way.</p>
+      </div>
+      <div class="founder-card reveal">
+        <div class="eyebrow">Founder</div>
+        <h3>Coach Kakande</h3>
+        <p>Head of Baka Skills Soccer Academy, committed to instilling skills, discipline, and hardwork into every young player who joins the Baka Army. His vision drives an academy that treats development as a full journey — not just a training session.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="values on-dark">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">What We Stand For</div>
+      <h2>Four core values</h2>
+      <p>Moving with core values is the key to success — our academy stands by these, on and off the pitch.</p>
+    </div>
+    <div class="values-grid">
+      <div class="value-card reveal"><div class="vnum">01</div><h3>Skill</h3><p>Technical ability built through daily, focused repetition.</p></div>
+      <div class="value-card reveal"><div class="vnum">02</div><h3>Discipline</h3><p>Structure and respect that shape a player's whole character.</p></div>
+      <div class="value-card reveal"><div class="vnum">03</div><h3>Hard Work</h3><p>Persistence and consistency, session after session.</p></div>
+      <div class="value-card reveal"><div class="vnum">04</div><h3>Hope</h3><p>Boys encouraged and believed in — every single day.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="categories" id="categories">
+    <img src="c:\Users\M-KAI\Downloads\IMG-20260818-WA0002.jpg" alt="">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Programs</div>
+      <h2>Age categories</h2>
+      <p>Every player trains within a category built for his stage of development.</p>
+    </div>
+    <div class="cat-grid">
+      <div class="jersey reveal">
+        <div class="jnum">U8</div>
+        <div class="jlabel">UNDER 8</div>
+        <p>Ball familiarity, coordination, and the joy of the game.</p>
+      </div>
+      <div class="jersey reveal">
+        <div class="jnum">U10</div>
+        <div class="jlabel">UNDER 10</div>
+        <p>Core technique, first touch, and small-sided teamwork.</p>
+      </div>
+      <div class="jersey reveal">
+        <div class="jnum">U11</div>
+        <div class="jlabel">UNDER 11</div>
+        <p>Tactical basics, ball control under pressure, positioning.</p>
+      </div>
+      <div class="jersey reveal">
+        <div class="jnum">+</div>
+        <div class="jlabel">AND MORE</div>
+        <p>Additional categories for older age groups — ask us for details.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="coaches" id="coaches">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Our Team</div>
+      <h2>Coaching staff</h2>
+    </div>
+    <div class="coach-grid">
+      <div class="coach-card reveal">
+        <div class="coach-role">Head Coach</div>
+        <h3>Coach Kakande</h3>
+        <p>Says the boys are ready for different tournaments that will sharpen their balling skills further.</p>
+      </div>
+      <div class="coach-card reveal">
+        <div class="coach-role">Goalkeeping Coach;Kisenyi Baker</div>
+        <img src="c:\Users\M-KAI\Downloads\IMG-20260817-WA0051.jpg" alt="">
+        <h3>Word From The GK Coach</h3>
+        <div class="coach-quote">"Persistence and consistency result in good performance. Doing something wholeheartedly means capability."</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="spotlight">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="spot-badge">10</div>
+    </div>
+    <div class="reveal">
+      <div class="eyebrow">Player Spotlight</div>
+      <h2>Hassan Garvin</h2><img src="c:\Users\M-KAI\Downloads\IMG-20260817-WA0048.jpg" alt="">
+      <blockquote>
+        "Joining Baka Army made me discover more in my talent. I've never regretted it, and I expect even more coming."
+        — Hassan Garvin, Baka Army
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<section class="news" id="news">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Baka Army Updates</div>
+      <h2>Latest from the academy</h2>
+    </div>
+    <div class="news-grid">
+      <div class="news-card reveal">
+        <div class="news-date">MORNING TRAINING</div>
+        <h3>Fresh starts, focused sessions</h3>
+        <p>Our main focus is now the morning training session, when the boys are fresh and ready. Every day they're encouraged and prayed for.</p>
+      </div>
+      <div class="news-card reveal">
+        <div class="news-date">TOURNAMENT PREP</div>
+        <h3>Boys ready for tournaments</h3>
+        <p>The head coach confirms the squad is prepared for upcoming tournaments designed to sharpen their balling skills.</p>
+      </div>
+      <div class="news-card reveal">
+        <div class="news-date">ACADEMY TOUR</div>
+        <h3>Learning beyond the pitch</h3>
+        <p>The boys' visit to the grass cutter was another step in helping our young stars pick up new skills for their careers.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="join" id="join">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow" style="color:var(--gold)">Join The Baka Army</div>
+      <h2>Give your child the best start</h2>
+      <p class="lead">Joining the academy means wishing your child the best in his career. We're here for you — reach out and enroll today.</p>
+    </div>
+    <form class="join-form reveal" onsubmit="event.preventDefault(); this.querySelector('.form-success').style.display='block';">
+      <div>
+        <label for="pname">Player's Name</label>
+        <input id="pname" type="text" placeholder="e.g. Hassan Garvin" required>
+      </div>
+      <div>
+        <label for="page">Age</label>
+        <input id="page" type="number" min="4" max="13" placeholder="e.g. 9" required>
+      </div>
+      <div>
+        <label for="pcat">Preferred Category</label>
+        <select id="pcat" required>
+          <option value="">Select a category</option>
+          <option>Under 8</option>
+          <option>Under 10</option>
+          <option>Under 11</option>
+          <option>Other / Not sure</option>
+        </select>
+      </div>
+      <div>
+        <img src="c:\Users\M-KAI\Downloads\IMG-20260817-WA0047.jpg" alt="">
+        <label for="pcontact">Parent WhatsApp / Phone</label>
+        <input id="pcontact" type="tel" placeholder="e.g. 07xx xxx xxx" required>
+      </div>
+      <button type="submit">SEND ENQUIRY</button>
+      <p class="form-note form-success" style="display:none;">Thanks — the Baka Skills team will reach out to you soon. ⚽</p>
+    </form>
+  </div>
+</section>
+<contact us><button type="submit">+256 749 562465 or kisenyibaker@gmail.com</button></contact>
+<location>Kasenge,Wakiso,Uganda</location>
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-logo">BAKA SKILLS SOCCER ACADEMY</div>
+      <div class="footer-links">
+        <a href="#about">About</a>
+        <a href="#categories">Categories</a>
+        <a href="#coaches">Coaches</a>
+        <a href="#news">News</a>
+        <a href="#join">Join</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Baka Skills Soccer Academy · Uganda</span>
+      <span>Developing young talents ⚽</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const toggle = document.getElementById('menuToggle');
+  const links = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => links.classList.toggle('open'));
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
