@@ -277,6 +277,13 @@
   @media(max-width:760px){ .join .wrap{grid-template-columns:1fr;} }
   .join h2{font-size:clamp(2rem,4vw,2.8rem); margin-bottom:16px;}
   .join p.lead{color:rgba(250,246,236,0.85); max-width:44ch; margin-bottom:6px;}
+  .contact-info{display:flex; flex-direction:column; gap:10px; margin-top:22px;}
+  .contact-info a{
+    color:var(--cream); font-family:'Bebas Neue',sans-serif; letter-spacing:1px;
+    font-size:1.05rem; display:inline-flex; align-items:center; gap:8px;
+    transition:color .2s;
+  }
+  .contact-info a:hover{color:var(--gold);}
   .join-form{
     background:var(--cream); color:var(--ink);
     border-radius:8px; padding:30px;
@@ -331,7 +338,7 @@
 <section class="hero">
   <div class="hero-inner">
     <div>
-      <div class="eyebrow">Baka Skills Soccer Academy · Uganda.tel:+256749562465 mailto:kisenyibaker@gmail.com</div>
+      <div class="eyebrow">Baka Skills Soccer Academy · Uganda</div>
       <h1>Developing<br>young <span class="accent">talents</span>⚽</h1>
       <p class="lead">Founded by Coach Kakande, Baka Skills builds skill, discipline, and hardwork into every young player who steps onto the pitch. This is where careers begin.</p>
       <div class="hero-ctas">
@@ -490,6 +497,10 @@
       <div class="eyebrow" style="color:var(--gold)">Join The Baka Army</div>
       <h2>Give your child the best start</h2>
       <p class="lead">Joining the academy means wishing your child the best in his career. We're here for you — reach out and enroll today.</p>
+      <div class="contact-info">
+        <a href="tel:+256749562465">📞 +256 749 562465</a>
+        <a href="mailto:kisenyibaker@gmail.com">✉️ kisenyibaker@gmail.com</a>
+      </div>
     </div>
     <form class="join-form reveal" onsubmit="event.preventDefault(); this.querySelector('.form-success').style.display='block';">
       <div>
@@ -498,7 +509,7 @@
       </div>
       <div>
         <label for="page">Age</label>
-        <input id="page" type="number" min="4" max="13" placeholder="e.g. 9" required>
+        <input id="page" type="number" min="4" max="19" placeholder="e.g. 9" required>
       </div>
       <div>
         <label for="pcat">Preferred Category</label>
@@ -520,8 +531,7 @@
     </form>
   </div>
 </section>
-<contact us><button type="submit">+256 749 562465 or kisenyibaker@gmail.com</button></contact>
-<location>Kasenge,Wakiso,Uganda</location>
+
 <footer>
   <div class="wrap">
     <div class="footer-grid">
@@ -532,6 +542,10 @@
         <a href="#coaches">Coaches</a>
         <a href="#news">News</a>
         <a href="#join">Join</a>
+      </div>
+      <div class="footer-links">
+        <a href="tel:+256749562465">+256 749 562465</a>
+        <a href="mailto:kisenyibaker@gmail.com">kisenyibaker@gmail.com</a>
       </div>
     </div>
     <div class="footer-bottom">
